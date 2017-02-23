@@ -50,7 +50,7 @@ function update() {
     // to make it more realtime
     ball.v -= g*dt;
     ball.y += ball.v*dt;
-    if ((ball.y < 0 || ball.u < Math.abs(ball.v)) && t !== 0) {
+    if (ball.y < 0 && t !== 0) {
         t = 0;
         ball.y = 0;
         ball.u = e * ball.u;
