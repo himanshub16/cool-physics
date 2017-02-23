@@ -46,13 +46,17 @@ function clear() {
 function update() {
     clear();
     ball.draw();
-    ball.y = ball.u*t - 0.5*g*t*t;
-    if ((ball.y <= 0 || ball.u <= ball.v) && t !== 0) {
+    // ball.y = ball.u*t - 0.5*g*t*t;
+    // to make it more realtime
+    ball.v -= g*dt;
+    ball.y += ball.v*dt;
+    if ((ball.y < 0 || ball.u < Math.abs(ball.v)) && t !== 0) {
         t = 0;
         ball.y = 0;
         ball.u = e * ball.u;
+        ball.v = ball.u;
     }
-    if (ball.u <= Math.sqrt(2*g*0.05)) {
+    if ((ball.u*ball.u)/(2*g) <= 0.05 && g != 0) {
         ball.y = 0;
         ball.v = 0;
         clear();
@@ -66,15 +70,19 @@ function update() {
     }
     t += dt;
     t_total += dt;
-    ball.v = ball.u - g*t;
+    // ball.v = ball.u - g*t;
     console.log(ball.y + ' ' + ball.v + ' and ' + ball.u + ' at ' + t);
-    y_display.innerText = ball.y.toFixed(3);
+    if (g == 0 && ball.y < Number.INTEGER)
+        y_display.innerText = "Going out to space!";
+    else
+        y_display.innerText = ball.y.toFixed(3);
     v_display.innerText = ball.v.toFixed(3);
     t_display.innerText = t_total.toFixed(3);
     raf = window.requestAnimationFrame(update);
 }
 
 u_old = ball.u;
+ball.v = ball.u;
 update();
 
 
@@ -99,6 +107,7 @@ function update_u(value) {
     if (value !== u_old) { // only on change
         ball.u = value;
         u_old = value;
+        if (raf === null) update();
     }
 }
 
@@ -118,6 +127,7 @@ document.getElementById("replay_btn").onclick = function() {
     if (raf !== null)
         window.cancelAnimationFrame(raf);
     ball.u = u_old;
+    ball.v = ball.u;
     t_total = 0;
     update();
 }
@@ -144,4 +154,4 @@ setInterval(function() {
     // u_spin.value = Number(u_slider.value).toFixed(2);
     // g_spin.value = Number(g_slider.value).toFixed(2);
     // dt_spin.value = Number(dt_slider.value).toFixed(2);
-}, 400)
+}, 400);
