@@ -50,7 +50,7 @@
       <!--time-->
       <li class="mdl-list__item--two-line">
         <span class="mdl-list__item-primary-content">
-          <span class="mdl-list__item-sub-title">Time elapsed</span>
+          <span class="mdl-list__item-sub-title">Time elapsed (s)</span>
           <span class="property">t</span>
           <span class="property-value" id="t-display">0</span>
         </span>
@@ -59,7 +59,7 @@
       <!--height-->
       <li class="mdl-list__item--two-line">
         <span class="mdl-list__item-primary-content">
-          <span class="mdl-list__item-sub-title">Current dsiplacement from ground</span>
+          <span class="mdl-list__item-sub-title">Current displacement from ground (m)</span>
           <span class="property">y</span>
           <span class="property-value" id="y-display">0</span>
         </span>
@@ -68,7 +68,7 @@
       <!--velocity-->
       <li class="mdl-list__item--two-line">
         <span class="mdl-list__item-primary-content">
-          <span class="mdl-list__item-sub-title">Current velocity (positive is up)</span>
+          <span class="mdl-list__item-sub-title">Current velocity (m/s) (positive is up)</span>
           <span class="property">v</span>
           <span class="property-value" id="v-display">0</span>
         </span>
@@ -91,10 +91,10 @@
       <!--u-->
       <li class="mdl-list__item--two-line">
         <span class="mdl-list__item-primary-content">
-          <span class="mdl-list__item-sub-title">Initial velocity</span>
+          <span class="mdl-list__item-sub-title">Initial velocity (m/s)</span>
           <span class="property">u</span>
           <span class="property-value">
-            <input id="u-slider" type="range" class="mdl-slider mdl-js-slider" onchange="update_v(this.value)" min="0" max="150" value="80" step="0.05">
+            <input id="u-slider" type="range" class="mdl-slider mdl-js-slider" onchange="update_v(this.value)" min="0" max="200" value="80" step="0.05">
           </span>
           <span class="property-value">
             <input id="u-spin" type="number" class="mdl-textfield__input" min="0" max="150" value="80" step="0.05" disabled >
@@ -105,7 +105,7 @@
       <!--g-->
       <li class="mdl-list__item--two-line">
         <span class="mdl-list__item-primary-content">
-          <span class="mdl-list__item-sub-title">Acceleration due to gravity</span>
+          <span class="mdl-list__item-sub-title">Acceleration due to gravity (m/s<sup>2</sup>)</span>
           <span class="property">g</span>
           <span class="property-value">
             <input id="g-slider" type="range" class="mdl-slider mdl-js-slider" onchange="update_g(this.value)" min="0" max="50" value="9.80" step="0.05">
@@ -120,7 +120,7 @@
       <li class="mdl-list__item--two-line">
         <span class="mdl-list__item-primary-content">
           <span class="mdl-list__item-sub-title">Clock speed</span>
-          <span class="property">speed</span>
+          <span class="property">clock</span>
           <span class="property-value">
             <input id="dt-slider" type="range" class="mdl-slider mdl-js-slider" onchange="update_dt(this.value)" min="10" max="2500" value="1600" step="1">
           </span>
