@@ -4,7 +4,7 @@
 
 ### How does it work ?
 
-Built using HTML5 Canvas API and :heart: .
+Built using [HTML5 Canvas API](https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API) and :heart: .
 
 # Contributing
 * Create a directory for your concept.
