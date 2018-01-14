@@ -23,15 +23,15 @@ ctx.fillStyle = 'green';
 ctx.fillRect(0, 0, canvas.width, 2);
 
 var x = canvas.width/2;
-var y = 0;
-var v = 0.05;
+var y = 100;
+var v = 0.01;
 var ball = {
     u: 80,
     vel: v,
     radius: 20,
     color: 'blue',
     x1: x-100, y1: y, r1: Math.PI,
-    x2: x - 100, y2: y + 100, r2: Math.PI*0.75,
+    x2: x, y2: y + 100, r2: Math.PI*0.75,
     x3: x, y3: y + 100, r3: Math.PI*0.5,
     x4: x, y4: y, r4: 0,
     draw: function() {
@@ -46,17 +46,18 @@ var ball = {
         ctx.fill();
     },
     topple: function(){
-        this.r1 += this.vel; 
-        this.x1 = x-100 - Math.cos(this.r1)*100;
-        this.y1 = y + Math.sin(this.r1)*100;
+        // this.r1 += this.vel; 
+        // this.x1 = x + Math.cos(this.r1)*100;
+        // this.y1 = y - Math.sin(this.r1)*100;
         this.r2 += this.vel; 
-        this.x2 = x-100 - Math.cos(this.r2)*100*Math.sqrt(2);
-        this.y2 = y+100 + Math.sin(this.r2)*100*Math.sqrt(2);
-        this.r3 += this.vel; 
-        this.x3 = x - Math.cos(this.r3)*100;
-        this.y3 = y+100 + Math.sin(this.r3)*100;
-        console.log(y);
+        this.x2 = -Math.cos(this.r2)*100*Math.sqrt(2) +150;
+        // this.y2 = y + Math.sin(this.r1)*100*Math.sqrt(2);
+        // this.r3 += this.vel; 
+        // this.x3 = x - Math.cos(this.r3)*100;
+        // this.y3 = y + Math.sin(this.r3)*100;
+        // console.log(y);
         this.draw();
+        console.log(this.x2);
     },
     update: function(){
         this.draw();
@@ -67,7 +68,7 @@ function clear() {
     ctx.fillStyle = 'white';
     ctx.fillRect(0, 2, canvas.width, canvas.height);
 }
-z=0;
+z=2;
 function animate() {
     clear();
     requestAnimationFrame(animate)
