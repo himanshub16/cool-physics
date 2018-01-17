@@ -1,7 +1,9 @@
 var canvas = document.getElementById('canvas');
 var ctx = canvas.getContext('2d');
 
-var x = canvas.width/2 - 175;
+canvas.width = window.innerWidth
+canvas.height = 0.25 * window.innerHeight
+var x = 175;
 var y = 0;
 var w = 0.0;
 var a = 0.0;
@@ -30,8 +32,10 @@ ctx.scale(-1, 1); // flip
 ctx.rotate(-Math.PI);
 
 // extra decos
-ctx.fillStyle = 'green';
-ctx.fillRect(0, 0, canvas.width, 2);
+function drawbase(){
+    ctx.fillStyle = '#1ea51c';
+    ctx.fillRect(0, 0, canvas.width, 4 * mu + 1);
+}
 
 // box
 var box = {
@@ -63,21 +67,22 @@ var box = {
         ctx.lineTo(this.x4+side,this.y4);
         ctx.lineTo(this.x4,this.y4);
         ctx.closePath();
-        ctx.fillStyle = "green";
+        ctx.fillStyle = "#1ea51c";
         ctx.fill();
+        drawbase();
     },
     //Arrow
     drawarrow: function() {
         ctx.beginPath()
-        ctx.moveTo(x-side-3*f, y_applied);
+        ctx.moveTo(x-side-6*f, y_applied);
         ctx.lineTo(x-side, y_applied);
-        ctx.lineTo(x-side-3, y_applied);
-        ctx.lineTo(x-side-3, y_applied-3);
+        ctx.lineTo(x-side-5, y_applied);
+        ctx.lineTo(x-side-5, y_applied-5);
         ctx.lineTo(x-side, y_applied);
-        ctx.lineWidth = 2.2;
-        ctx.strokeStyle = '#f44242';
+        ctx.lineWidth = 2.8;
+        ctx.strokeStyle = '#c12222';
         ctx.stroke();
-        ctx.fillStyle = '#f44242';
+        ctx.fillStyle = '#c12222';
         ctx.fill();
         ctx.closePath()
     },
@@ -118,6 +123,7 @@ function animate() {
     requestAnimationFrame(animate);
     box.update();
     box.drawarrow();
+    drawbase();
     //Topples and slips
     if((f > mu * kg * g) && (f * y_applied > (kg * g * side)/2 ))
     {
@@ -242,7 +248,7 @@ function reset()
     v = 0;
     a = 0;
     t_total = 0;
-    x = canvas.width/2 - 175;
+    x =175;
     box.x1 = x-side; box.y1 = y; box.r1 = Math.PI;
     box.x2 = x-side; box.y2 = y + side; box.r2 = Math.PI*0.75;
     box.x3 = x; box.y3 = y + side; box.r3 = Math.PI*0.5;
