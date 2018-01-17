@@ -4,7 +4,7 @@ var ctx = canvas.getContext('2d');
 var x = canvas.width/2 - 175;
 var y = 0;
 var w = 0.0;
-var a=0.0;
+var a = 0.0;
 var alp=0.0;
 var v = 0.0;
 var side = 75;
@@ -50,8 +50,8 @@ var box = {
         ctx.lineTo(this.x3,this.y3);
         ctx.lineTo(this.x4,this.y4);
         ctx.closePath();
-        ctx.fillStyle = this.color;
-        console.log(this.x4);
+        var colorDensity = 40 * kg;
+        ctx.fillStyle = 'rgb(' + (200 - colorDensity) + ', ' + (200 - colorDensity) + ',' + ' 200)';
         ctx.fill();
     },
     // to fix offset produced by radians going off limit
@@ -65,6 +65,21 @@ var box = {
         ctx.closePath();
         ctx.fillStyle = "green";
         ctx.fill();
+    },
+    //Arrow
+    drawarrow: function() {
+        ctx.beginPath()
+        ctx.moveTo(x-side-3*f, y_applied);
+        ctx.lineTo(x-side, y_applied);
+        ctx.lineTo(x-side-3, y_applied);
+        ctx.lineTo(x-side-3, y_applied-3);
+        ctx.lineTo(x-side, y_applied);
+        ctx.lineWidth = 2.2;
+        ctx.strokeStyle = '#f44242';
+        ctx.stroke();
+        ctx.fillStyle = '#f44242';
+        ctx.fill();
+        ctx.closePath()
     },
     topple: function(){
         this.r1 += this.om; 
@@ -85,18 +100,11 @@ var box = {
         this.x3 += this.vel;
         this.x4 += this.vel;
     },
+
     update: function(){
         this.draw();
         this.om = w;
         this.vel = v;
-        //extra dot
-        ctx.beginPath()
-        ctx.arc(x-side, y_applied, 3, 0, Math.PI * 2, false);
-        ctx.strokeStyle = 'black';
-        ctx.stroke();
-        ctx.fillStyle = '#f44242';
-        ctx.fill();
-        ctx.closePath()
     }
 }
 
@@ -109,6 +117,8 @@ function animate() {
     clear();
     requestAnimationFrame(animate);
     box.update();
+    box.drawarrow();
+    //Topples and slips
     if((f > mu * kg * g) && (f * y_applied > (kg * g * side)/2 ))
     {
         if(box.y3 < 0)
@@ -250,7 +260,7 @@ document.getElementById("reset_btn").onclick = function() {
     update_g(10);
     update_y(37.5);
     update_kg(1);
-
+ 
 }
 
 // very bad practice due to materialize framework
