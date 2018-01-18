@@ -1,13 +1,13 @@
 var canvas = document.getElementById('canvas');
 var ctx = canvas.getContext('2d');
 
-canvas.width = window.innerWidth
+canvas.width = 0.98 * window.innerWidth
 canvas.height = 0.25 * window.innerHeight
 var x = 175;
 var y = 0;
 var w = 0.0;
 var a = 0.0;
-var alp=0.0;
+var alp = 0.0;
 var v = 0.0;
 var side = 75;
 
