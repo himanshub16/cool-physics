@@ -1,0 +1,223 @@
+<html>
+
+<head>
+  <title>Elastic free fall</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.blue-red.min.css">
+  <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+
+  <style>
+    .property {
+      margin: 10px;
+      font-size: 1.5em;
+      width: 2em;
+    }
+    .property-value {
+      font-size: 1.2em;
+    }
+    .property, .property-value {
+      display: inline-block;
+    }
+    .page-title {
+      margin-top: 0;
+      font-family: Roboto;
+    }
+    .mdl-list__item-sub-title
+    {
+      z-index: 10;
+    }
+    .mdl-grid.info
+    {
+      margin-left: 5%;
+    }
+    body
+    {
+      min-width: 1025px;
+    }
+   
+  </style>
+
+</head>
+
+<body>
+
+
+<div class="mdl-grid">
+  <div class="mdl-cell mdl-cell--12-col">
+    <h3 class="page-title">
+        Projectile Motion 
+    </h3>
+    <canvas id="canvas" width="300" height="500"></canvas>
+  </div>
+</div>
+<div class="mdl-grid info">
+
+
+  <div class="mdl-cell mdl-cell--4-col">
+
+    <ul class="mdl-list">
+
+      
+      <!--time-->
+      <li class="mdl-list__item--two-line">
+        <span class="mdl-list__item-primary-content">
+          <span class="mdl-list__item-sub-title">Time elapsed (s)</span>
+          <span class="property">t</span>
+          <span class="property-value" id="t-display">0</span>
+        </span>
+      </li>
+
+      <!--height-->
+      <li class="mdl-list__item--two-line">
+        <span class="mdl-list__item-primary-content">
+          <span class="mdl-list__item-sub-title">Current displacement from ground (m)</span>
+          <span class="property">y</span>
+          <span class="property-value" id="y-display">0</span>
+        </span>
+      </li>
+    
+
+
+
+      <!--velocity-->
+      <li class="mdl-list__item--two-line">
+        <span class="mdl-list__item-primary-content">
+          <span class="mdl-list__item-sub-title">Current velocity (m/s)</span>
+          <span class="property">v</span>
+          <span class="property-value" id="v-display">0</span>
+        </span>
+      </li>
+
+      <!-- Range -->
+      <li class="mdl-list__item--two-line">
+        <span class="mdl-list__item-primary-content">
+          <span class="mdl-list__item-sub-title">Range (m/s)</span>
+          <span class="property">r</span>
+          <span class="property-value" id="range-display">0</span>
+        </span>
+      </li>
+
+    </ul>
+  </div>
+
+  <div class="mdl-cell mdl-cell--4-col">
+
+    <ul class="mdl-list">
+      
+
+      
+    
+
+      <!-- Max Height -->
+      <li class="mdl-list__item--two-line">
+        <span class="mdl-list__item-primary-content">
+          <span class="mdl-list__item-sub-title">Maximum Height (m)</span>
+          <span class="property">H</span>
+          <span class="property-value" id="maxheight-display">0</span>
+        </span>
+      </li>
+
+
+      <!--e-->
+      <li class="mdl-list__item--two-line">
+        <span class="mdl-list__item-primary-content">
+          <span class="mdl-list__item-sub-title">Coefficient of restitution</span>
+          <span class="property">e</span>
+          <span class="property-value">
+            <input id="e-slider" type="range" onchange="update_e(this.value)" class="mdl-slider mdl-js-slider" min="0" max="1" value="1" step="0.005">
+          </span>
+          <span class="property-value">
+            <input id="e-spin" type="number" class="mdl-textfield__input" min="0" max="1" value="1" step="0.05" disabled>
+          </span>
+        </span>
+      </li>
+
+
+    <!--g-->
+    <li class="mdl-list__item--two-line">
+        <span class="mdl-list__item-primary-content">
+          <span class="mdl-list__item-sub-title">Acceleration due to gravity (m/s<sup>2</sup>)</span>
+          <span class="property">g</span>
+          <span class="property-value">
+            <input id="g-slider" type="range" class="mdl-slider mdl-js-slider" onchange="update_g(this.value)" min="0" max="50" value="9.80" step="0.05">
+          </span>
+          <span class="property-value">
+            <input id="g-spin" type="number" class="mdl-textfield__input" min="0" max="50" value="9.8" step="0.05" disabled >
+          </span>
+        </span>
+      </li>
+
+
+      <!-- u -->
+    <li class="mdl-list__item--two-line">
+        <span class="mdl-list__item-primary-content">
+          <span class="mdl-list__item-sub-title">Initial velocity (m/s)</span>
+          <span class="property">u</span>
+          <span class="property-value">
+            <input id="u-slider" type="range" class="mdl-slider mdl-js-slider" onchange="update_u(this.value)" min="0" max="200" value="80" step="0.05">
+          </span>
+          <span class="property-value">
+            <input id="u-spin" type="number" class="mdl-textfield__input" min="0" max="150" value="80" step="0.05" disabled >
+          </span>
+        </span>
+      </li>
+    
+    </ul>
+  </div>
+
+  
+
+  <div class="mdl-cell mdl-cell--4-col">
+
+      <ul class="mdl-list">
+
+
+
+      <li class="mdl-list__item">
+          <button class="mdl-button mdl-js-button mdl-button--colored" id="replay_btn">Replay</button>
+          <button class="mdl-button mdl-js-button mdl-button--colored" id="reset_btn">Reset</button>
+      
+        </li>
+
+        <!-- theta -->
+      <li class="mdl-list__item--two-line">
+        <span class="mdl-list__item-primary-content">
+          <span class="mdl-list__item-sub-title">Angle of projection (&deg;)</span>
+          <span class="property">&theta;</span>
+          <span class="property-value">
+            <input id="theta-slider" type="range" class="mdl-slider mdl-js-slider" onchange="update_theta(this.value)" min="0" max="90" value="45" step="0.05">
+          </span>
+          <span class="property-value">
+            <input id="theta-spin" type="number" class="mdl-textfield__input" min="0" max="90" value="45" step="0.05" disabled >
+          </span>
+        </span>
+      </li>
+
+      <!--dt-->
+    <li class="mdl-list__item--two-line">
+        <span class="mdl-list__item-primary-content">
+          <span class="mdl-list__item-sub-title">Clock speed</span>
+          <span class="property">clock</span>
+          <span class="property-value">
+            <input id="dt-slider" type="range" class="mdl-slider mdl-js-slider" onchange="update_dt(this.value)" min="10" max="2500" value="1600" step="1">
+          </span>
+          <span class="property-value">
+            <input id="dt-spin" type="number" class="mdl-textfield__input" min="10" max="2500" value="1600" step="0.05" disabled >
+          </span>
+        </span>
+      </li>
+      
+
+      
+      </ul>
+  </div>
+
+
+  
+</div>
+
+<script src="index.js"></script>
+
+</body>
+
+</html>
