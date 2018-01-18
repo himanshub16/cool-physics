@@ -16,7 +16,7 @@ var t_display = document.getElementById("t-display");
 var range_display = document.getElementById("range-display");
 var maxheight_display = document.getElementById("maxheight-display");
 
-canvas.width = window.innerWidth;
+canvas.width = 0.98 * window.innerWidth;
 canvas.height = 0.5 * window.innerHeight;
 
 // normalize the canvas
@@ -37,7 +37,7 @@ var ball = {
     uy: 80 * (Math.sin((Math.PI*45)/180)),
     ux: 80 * (Math.cos((Math.PI*45)/180)),
     radius: 20,
-    color: 'blue',
+    color: 'green',
     
     
     draw: function() 
