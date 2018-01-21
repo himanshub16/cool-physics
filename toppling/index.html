@@ -1,0 +1,196 @@
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>Toppling</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.blue-red.min.css">
+  <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+
+  <style>
+    body{
+      margin: 0;
+      padding: 0;
+      min-width: 1150px;
+    }
+    /* canvas {
+      margin: 0;
+      padding: 0;
+    } */
+    p{
+      font-family: Roboto;
+      text-align: left;
+      color: rgba(0,0,0,0.5);
+      margin-left:200px;
+    }
+    .property {
+      margin: 10px;
+      font-size: 1.5em;
+      width: 2em;
+    }
+    .property-value {
+      font-size: 1.2em;
+    }
+    .property, .property-value {
+      display: inline-block;
+    }
+    .page-title {
+      margin-top: 0;
+      font-family: Roboto;
+    }
+    .mdl-list{
+      padding: 10px;  
+    }
+    h3{
+      text-align: center;
+    }
+  </style>
+
+</head>
+
+<body>
+  <div class="mdl-cell mdl-cell--12-col">
+      <h3 class="page-title">
+          Toppling.
+      </h3>
+    <canvas id="canvas"></canvas>
+  </div>
+</div>
+
+<div class="mdl-grid">
+  <div class="mdl-cell mdl-cell--4-col">
+    <ul class="mdl-list">    
+      <!--alpha-->
+      <li class="mdl-list__item--two-line">
+        <span class="mdl-list__item-primary-content">
+          <span class="mdl-list__item-sub-title">Current angular acceleration(rad/s<sup>2</sup>)</span>
+          <span class="property">&alpha;</span>
+          <span class="property-value" id="alp-display">0</span>
+        </span>
+      </li>
+
+      <!-- Acceleration -->
+      <li class="mdl-list__item--two-line">
+        <span class="mdl-list__item-primary-content">
+          <span class="mdl-list__item-sub-title">Current acceleration(m/s<sup>2</sup>)</span>
+          <span class="property">a</span>
+          <span class="property-value" id="a-display">0</span>
+        </span>
+      </li> 
+
+       <!--omega-->
+       <li class="mdl-list__item--two-line">
+        <span class="mdl-list__item-primary-content">
+          <span class="mdl-list__item-sub-title">Current angular velocity (rad/s) (positive is clockwise)</span>
+          <span class="property">&omega;</span>
+          <span class="property-value" id="om-display">0</span>
+        </span>
+      </li>
+      
+      <!-- linear speed -->
+      <li class="mdl-list__item--two-line">
+          <span class="mdl-list__item-primary-content">
+            <span class="mdl-list__item-sub-title">Current velocity (m/s)</span>
+            <span class="property">v</span>
+            <span class="property-value" id="v-display">0</span>
+          </span>
+        </li>
+    </ul>
+</div> 
+<div class="mdl-cell mdl-cell--4-col">
+    <ul class="mdl-list">
+      <!--Force-->
+      <li class="mdl-list__item--two-line">
+          <span class="mdl-list__item-primary-content">
+            <span class="mdl-list__item-sub-title">Force applied</span>
+            <span class="property">N</span>
+            <span class="property-value">
+              <input id="f-slider" type="range" class="mdl-slider mdl-js-slider" onchange="update_f(this.value)" min="0" max="20" value="5" step="0.05">
+            </span>
+            <span class="property-value">
+              <input id="f-spin" type="number" class="mdl-textfield__input" min="0" max="20" value="5" step="0.05" disabled >
+            </span>
+          </span>
+        </li>
+     
+
+        <!-- y -->
+        <li class="mdl-list__item--two-line">
+            <span class="mdl-list__item-primary-content">
+              <span class="mdl-list__item-sub-title">Height from where force is applied</span>
+              <span class="property">cm</span>
+              <span class="property-value">
+                <input id="y-slider" type="range" class="mdl-slider mdl-js-slider" onchange="update_y(this.value)" min="0" max="75" value="37.5" step="0.05">
+              </span>
+              <span class="property-value">
+                <input id="y-spin" type="number" class="mdl-textfield__input" min="0" max="75" value="37.5" step="0.05" disabled >
+              </span>
+            </span>
+          </li>
+           <!--mu-->
+      <li class="mdl-list__item--two-line">
+          <span class="mdl-list__item-primary-content">
+            <span class="mdl-list__item-sub-title">Coefficient of friction (Both static and kinetic)</span>
+            <span class="property">&mu;</span>
+            <span class="property-value">
+              <input id="mu-slider" type="range" onchange="update_mu(this.value)" class="mdl-slider mdl-js-slider" min="0" max="1" value="0.5" step="0.05">
+            </span>
+            <span class="property-value">
+              <input id="mu-spin" type="number" class="mdl-textfield__input" min="0" max="1" value="0.5" step="0.05" disabled>
+            </span>
+          </span>
+        </li>
+        <!--kg-->
+        <li class="mdl-list__item--two-line">
+          <span class="mdl-list__item-primary-content">
+            <span class="mdl-list__item-sub-title">Mass</span>
+            <span class="property">Kg</span>
+            <span class="property-value">
+              <input id="kg-slider" type="range" class="mdl-slider mdl-js-slider" onchange="update_kg(this.value)" min="0.05" max="5" value="1" step="0.05">
+            </span>
+            <span class="property-value">
+              <input id="kg-spin" type="number" class="mdl-textfield__input" min="0.05" max="5" value="1" step="0.05" disabled >
+            </span>
+          </span>
+        </li>
+     
+        <!--g-->
+        <li class="mdl-list__item--two-line">
+          <span class="mdl-list__item-primary-content">
+            <span class="mdl-list__item-sub-title">Acceleration due to gravity (m/s<sup>2</sup>)</span>
+            <span class="property">g</span>
+            <span class="property-value">
+              <input id="g-slider" type="range" class="mdl-slider mdl-js-slider" onchange="update_g(this.value)" min="0" max="50" value="10" step="0.05">
+            </span>
+            <span class="property-value">
+              <input id="g-spin" type="number" class="mdl-textfield__input" min="0" max="50" value="10" step="0.05" disabled >
+            </span>
+          </span>
+        </li>
+      </ul>
+    </div>
+<div class="mdl-cell mdl-cell--4-col">
+    <ul class="mdl-list">
+        <li class="mdl-list__item">
+            <button class="mdl-button mdl-js-button mdl-button--colored" id="replay_btn">Replay</button>
+            <button class="mdl-button mdl-js-button mdl-button--colored" id="reset_btn">Reset</button>
+        </li>  
+     
+      <li class="mdl-list__item--two-line">
+        <span class="mdl-list__item-primary-content">
+        <span class="mdl-list__item-sub-title">
+        Note: Here change in &omega; is &alpha;/1000 and change in v is a/10. <br>
+        All four conditions of toppling and slipping are considered. <br>
+        The animation speed is just for visualisation. <br>
+        When block come to rest the final values of &omega;, &alpha;, v and a are shown.
+      </span>
+      </span>
+    </li>
+  </div>
+</div>
+
+<script src="index.js"></script>
+
+</body>
+
+</html>
