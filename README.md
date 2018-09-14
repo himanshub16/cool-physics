@@ -15,3 +15,4 @@ Built using [HTML5 Canvas API](https://developer.mozilla.org/en-US/docs/Web/API/
 
 # Contributing guidelines
 Find them [here](CONTRIBUTING.md).
+
